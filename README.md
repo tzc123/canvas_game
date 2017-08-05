@@ -444,5 +444,5 @@ function createPipes() {
 
 ## 总结
 吁...一篇又臭又长、废话又多的文章终于写完了，如果大家觉得有帮助，或者对这篇文章有兴趣的话，就赏个赞。如果觉得我的程序有问题，或者有别的想说的，都可以在评论里告诉我，我会看的。
-我的项目地址：https://github.com/tzc123/canvas_game
-参考项目地址：http://www.jianshu.com/p/45d994d04a25
+<br>我的项目地址：https://github.com/tzc123/canvas_game
+<br>参考项目地址：http://www.jianshu.com/p/45d994d04a25
