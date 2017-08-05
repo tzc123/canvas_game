@@ -303,7 +303,7 @@ class Pipe {
     }
   }
 ```
-我是通过判断水管的位置是否已经位于小鸟的后面来判断，小鸟是否越过了水管的，如果越过了就+1分，至于没越过就是前面通过前面讲过到的isHit()判断了，因为不是同一时间段发生的事情所以不能放在一起。
+我是通过判断水管的位置是否已经位于小鸟的后面来判断，小鸟是否越过了水管的，如果越过了就+1分，至于没越过就是通过前面讲过到的isHit()判断了，因为不是同一时间段发生的事情所以不能放在一起。
 ### 计分表
 ![image](https://github.com/tzc123/canvas_game/raw/master/img/score.png)
 ```
@@ -425,7 +425,7 @@ function createPipes() {
   }
 ```
 ![image](https://github.com/tzc123/canvas_game/raw/master/img/gameOver.png)
-整个世界都平静了下来，定时器关掉，响应事件移除掉，然后绘上大大的、惨白的GAME OVER,下面附带一个游戏开始时就出现的start按钮。不是有一句话说的是，结束不过是新的开始吗，你又可以再来一局了。......好吧，这个就是我为了偷懒随便搞搞的。不过这还没完，数据还得重置一下，不然怎么重新开始。
+<br>整个世界都平静了下来，定时器关掉，响应事件移除掉，然后绘上大大的、惨白的GAME OVER,下面附带一个游戏开始时就出现的start按钮。不是有一句话说的是，结束不过是新的开始吗，你又可以再来一局了。......好吧，这个就是我为了偷懒随便搞搞的。不过这还没完，数据还得重置一下，不然怎么重新开始。
 ```
   //重置数据
   function reset(){
@@ -438,7 +438,7 @@ function createPipes() {
   }
 ```
 最后再给这个start按钮添加上点击事件，大功告成！这就使我调整难度之后的样子：
-![image](https://github.com/tzc123/canvas_game/raw/master/gif/bird2.gif)
+![image](https://github.com/tzc123/canvas_game/raw/master/gif/bird1.gif)
 <br>啧啧啧，这种闲庭信步的感觉......
 <br>果然游戏还是有点难度才有意思......
 
