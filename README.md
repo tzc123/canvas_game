@@ -3,7 +3,7 @@
 ![image](https://github.com/tzc123/canvas_game/raw/master/gif/bird0.gif)
 <br>怎么样？是不是感觉难度巨大？...可能是因为我比较菜吧。相信高手还是大有人在的，随便过个几十关也是不在话下。但是如果有和我一样10关都过不了小菜鸡的话，根本不用丧气对吧？咱是程序员是不是？游戏不会玩，作弊还不会吗？咳咳，下面就是作弊的方法：
 ## 首先搞清楚结构
-```
+```html
 <style>
   *{
     margin: 0;
@@ -20,13 +20,13 @@
   }
 </style>
 ```
-```
+```css
 <canvas id="canvas" width="343" height="480"></canvas>
 ```
 很简单，就是这样。
 ## 注意！我要开始说了
 ### 首先咱先加载一下所有的图片
-```
+```javascript
 // 图片集合
 var imgs = {
   //创建图片
@@ -109,7 +109,7 @@ var imgs = {
 大家都知道，其实canvas就是画图，如果要用canvas实现动画效果的话，就只能一遍一遍的擦了画、画了擦了。
 ### 首先
 先把几个固定不动的部分的绘制方法和清空画布的方法写在函数里
-```
+```javascript
 //绘制背景
   function drawBg() {
     ctx.drawImage(imgs.bg,0,0);
@@ -125,7 +125,7 @@ var imgs = {
 ```
 ### 然后
 把会动的部分也加上
-```
+```javascript
 var v = 0;//草坪滚动的增量
   //绘制草坪
   function drawGrass() {
@@ -138,7 +138,7 @@ var v = 0;//草坪滚动的增量
   }
 ```
 这样每次运行一次，草坪就会向左移一点了
-```
+```javascript
 var shake = true;//标题的抖动状态
   //标题的抖动效果
   function titleShake() {
@@ -155,7 +155,7 @@ var shake = true;//标题的抖动状态
 机智的各位应该已经发现了，上面两个函数需要重复调用，才能产生动画的效果，所以这就是我接下来要讲的。
 ### 开始界面的定时器
 ![image](https://github.com/tzc123/canvas_game/raw/master/gif/bird2.gif)
-```
+```javascript
 var startTimer;//开始界面定时器
 var startTime = 0;//定时器运行的次数
 function startLayer() {
@@ -177,7 +177,7 @@ function startLayer() {
 ```
 大家也可以理解为这就是开始界面，因为开始界面就是通过定时器一次次运行上面的函数所实现的。然而上面定义的startTimer和startTime又有什么用呢，当然不是多此一举，首先，把这个定时器赋给一个变量，是为了在开始游戏的时候把这个界面关掉，也就是把这个定时器取消，往后看大家就明白了:)其次，startTime是为了记录定时器运行的次数，因为这个定时器刷新的实现极快，只有短短的0.024毫秒，如果标题以这个速度抖动的话，大家的眼睛一定受不了了吧，所以我设法让他慢下来，每运行7次抖动一次，当然大家可以设置9、10、11使它的频率更加缓慢。当然这个作弊没有半毛钱关系，不过下面就是重头戏了。
 ### 主角登场！！！
-```
+```javascript
 var bird = {
   bird: [imgs.bird0,imgs.bird1],//正常状态，图片
   up_bird: [imgs.up_bird0,imgs.up_bird1],//向上飞状态
@@ -234,7 +234,7 @@ var bird = {
 }
 ```
 ...当然这只是主角的代码，一个对象字面量。但是它可以操控主角的所有行为（虽然也没有几个行为...），首先就是画出主角draw()，通过传进不同的图片绘制出主角不同情况下的英姿...然后是wingWave()，通过改变index,切换上面定义的图片数组中的图片，也就是挥翅膀。再然后就是飞行fly(),在飞行过程中主角会碰到各种各样的事故，像是飞的太高撞到天花板啊，或是飞的太低，摔了个狗啃屎。再干脆点一头撞死在了钢管上，但是这个函数并不在这里，因为小鸟撞死在钢管上到底是小鸟的行为，还是钢管的行为呢，我还没想明白，所以干脆放在了全局中。
-```
+```javascript
   //判断是否碰撞
   function isHit(oPipe){
     if(bird.posX+bird.bird[0].width>oPipe.posX&&bird.posX<oPipe.posX+oPipe.down_pipe.width){
@@ -246,7 +246,7 @@ var bird = {
 ```
 就像这样，通过判断小鸟和钢管的位置判断小鸟是不是撞在钢管上了。反正结果还是撞死bird.dead()。看到这里相信不用我说，大家也明白了吧，只要将这段代码注释掉，我们的小鸟不就练成的绝世铁头功，钢管都捅穿给你看。或者稍稍增大一点小鸟会被碰撞到的体积，那就是凌波微步、轻功管上飘了呀。说了半天，还没告诉大家这个水管又是哪里来的。
 ### 钢管
-```
+```javascript
 //水管类
 class Pipe {
   constructor(up_pipe,up_mod,down_pipe,down_mod) {
@@ -288,7 +288,7 @@ class Pipe {
 管口：![image](https://github.com/tzc123/canvas_game/raw/master/flappy_bird/img/up_pipe.png)
 管体：![image](https://github.com/tzc123/canvas_game/raw/master/flappy_bird/img/up_mod.png)
 <br>又是一段冗长的代码，大家不要急躁，我给和大家详细解释，水管分为两部分，一部分是固定的管口，还有一部分是为了控制钢管长度的管体，在上面的图片也可以看到，每一关的管道是分为上下两个的——up_pipe和down_pipe，也就是说我们看到的钢管是由数个相同的管体加管口构成的，这里管体的数量是随机的，这样就可以使管道拥有随机的长度了。然后为了保证上下两个钢管的中间距离固定，下管道的高度就是总高度减去上管道的高度，嗯，这里需要理一理，大家也可以直接去看我的代码。有了上面的理论，接下来就简单了，绘制管口drawPipe()，注意给管体预留出位置来，再绘制管体drawMods(),用一个for循环依次绘制出数个管体叠加在一起的样子。水管移动move(),就是改变水管的横坐标了。这里可以通过改变上下水管高度的总值，来增加上下水管之间的距离，是不是游戏难度一下就降了很多？再有就是判断水管是否被小鸟跨越的hadskiped属性，往下看
-```
+```javascript
 //判断是否越过水管
   function isSkipped(oPipe) {
     if(bird.posX>oPipe.posX+oPipe.down_pipe.width){
@@ -306,7 +306,7 @@ class Pipe {
 我是通过判断水管的位置是否已经位于小鸟的后面来判断，小鸟是否越过了水管的，如果越过了就+1分，至于没越过就是通过前面讲过到的isHit()判断了，因为不是同一时间段发生的事情所以不能放在一起。
 ### 计分表
 ![image](https://github.com/tzc123/canvas_game/raw/master/img/score.png)
-```
+```javascript
 var scroll = 0;//当前得分
 var scrollImg = [imgs.scroe0,imgs.scroe1,imgs.scroe2,
               imgs.scroe3,imgs.scroe4,imgs.scroe5,
@@ -323,7 +323,7 @@ var scrollImg = [imgs.scroe0,imgs.scroe1,imgs.scroe2,
 首先，把所有分数有关的图片放到这里scrollImg来，方便使用。然后判断数字的位数，也就是个十百千万。循环并截取每个位数，再通过相应的图片绘制出来，并且每绘制一个位数的图片位置向右移23，这样数字就不会叠在一起了。这里有一种最没意思的作弊方法，就是手动调整分数，不过游戏的乐趣果然还是在于过程，下面...
 
 ### 游戏开始！
-```
+```javascript
 //游戏界面
   function gameLayer() {
     gameTimer = setInterval(function () {
@@ -354,7 +354,7 @@ var scrollImg = [imgs.scroe0,imgs.scroe1,imgs.scroe2,
   }
 ```
 ...看到这里，估计已经有人在骂我了，讲了半天游戏还没开始...好吧，你们看，其实游戏的界面也不过是一个定时器，将前面讲到的函数和代码，无脑的、重复的执行着。然后这里一定要注意画图的顺序，不然后画的部分会把前面覆盖掉，其次这里的gameTimer和gameTime也和开始界面中startTimer、startTime起到类似的作用，每过一段较长的时间生成一个水管，也就是通过水管类实例化一个水管对象，具体的方法被我封装进一个createPipes函数里了。
-```
+```javascript
 var pipes = [];//用于存放水管
 function createPipes() {
     var pipe = new Pipe(imgs.up_pipe,imgs.up_mod,imgs.down_pipe,imgs.down_mod);
@@ -373,7 +373,7 @@ function createPipes() {
 因为实现的方法没有想象中那么简单，首先我们要创造一个水管的数组，它的作用就是为了控制水管的数量，不然我们的定时器就会一遍一遍的创造出无数的水管，但是前面的水管早就离我们远去，所以我就用数组把水管装起来，控制只有一个屏幕的水管，也就是三个。如果创建了超过三个水管，就会把最前面一个替换掉，因为它已经超出了我们的视野。
 ### 响应事件
 光有动画也不行，只能看不能玩有个皮用啊。所以我们当然要添加响应事件了。
-```
+```javascript
 //键盘点击事件
   function kd(e) {
     if (e.keyCode === 32) {
@@ -408,7 +408,7 @@ function createPipes() {
 
 ### 游戏结束
 假如我们的主角真的一个不小心如我们所料的撞死在了钢管上（往上翻，就在游戏开始那里），那就表示gameOver();
-```
+```javascript
   //游戏结束
   function gameOver(){
     //清除定时器
@@ -426,7 +426,7 @@ function createPipes() {
 ```
 ![image](https://github.com/tzc123/canvas_game/raw/master/img/gameOver.png)
 <br>整个世界都平静了下来，定时器关掉，响应事件移除掉，然后绘上大大的、惨白的GAME OVER,下面附带一个游戏开始时就出现的start按钮。不是有一句话说的是，结束不过是新的开始吗，你又可以再来一局了。......好吧，这个就是我为了偷懒随便搞搞的。不过这还没完，数据还得重置一下，不然怎么重新开始。
-```
+```javascript
   //重置数据
   function reset(){
     bird.posY = 200;
