@@ -11,14 +11,14 @@
     margin: 0;
     padding: 0;
   }
-  #canvas{
-    display: block;
-    margin: 50px auto;
-  }
   html,body {
     height: 100%;
     width: 100%;
     overflow: hidden;
+  }
+  #canvas{
+    display: block;
+    margin: 50px auto;
   }
 </style>
 <body>
@@ -35,7 +35,7 @@ document.body.addEventListener('touchmove', function (event) {
 //创建canvas
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
-var shake = true;//小鸟飞行的状态————翅膀向上或向下
+var shake = true;//标题的抖动状态
 var v = 0;//草坪滚动的增量
 var pipes = [];//用于存放水管
 var index = 0;//pipes的下标
@@ -43,6 +43,7 @@ var startTimer;//开始界面定时器
 var gameTimer;//游戏界面定时器
 var startTime = 0;//定时器运行的次数
 var gameTime = 0;
+// var then;//记录运行的时间
 var scroll = 0;//当前得分
 var scrollImg = [imgs.scroe0,imgs.scroe1,imgs.scroe2,
               imgs.scroe3,imgs.scroe4,imgs.scroe5,
@@ -226,3 +227,4 @@ var scrollImg = [imgs.scroe0,imgs.scroe1,imgs.scroe2,
   init();
 </script>
 </html>
+
